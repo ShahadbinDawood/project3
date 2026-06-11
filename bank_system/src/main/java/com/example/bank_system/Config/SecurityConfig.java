@@ -29,39 +29,38 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
-                        // Public
-                        .requestMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
 
-                        // USER - ADMIN only
-                        .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
 
-                        // CUSTOMER
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/customer").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/customer/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/customer").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/customer/**").hasAuthority("ADMIN")
+   
+    .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
 
-                        // EMPLOYEE
-                        .requestMatchers(HttpMethod.POST,   "/api/v1/employee/register").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/employee/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/employee/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/employee/**").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.GET,    "/api/v1/customer").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.GET,    "/api/v1/customer/**").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/customer").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.DELETE, "/api/v1/customer/**").hasAuthority("ADMIN")
 
-                        // ACCOUNT
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/account").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/account/my-accounts").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.GET,    "/api/v1/account/**").hasAnyAuthority("ADMIN","EMPLOYEE")
-                        .requestMatchers(HttpMethod.POST,   "/api/v1/account").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/activate/**").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/block/**").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/deposit/**").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/withdraw/**").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/transfer").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.PUT,    "/api/v1/account/**").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/account/**").hasAuthority("CUSTOMER")
+    // EMPLOYEE
+    .requestMatchers(HttpMethod.POST,   "/api/v1/employee/register").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.GET,    "/api/v1/employee/**").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/employee/**").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.DELETE, "/api/v1/employee/**").hasAuthority("ADMIN")
 
-                        .anyRequest().authenticated()
-                )
+    // ACCOUNT
+    .requestMatchers(HttpMethod.GET,    "/api/v1/account/my-accounts").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.GET,    "/api/v1/account").hasAuthority("ADMIN")
+    .requestMatchers(HttpMethod.GET,    "/api/v1/account/**").hasAnyAuthority("ADMIN","EMPLOYEE")
+    .requestMatchers(HttpMethod.POST,   "/api/v1/account").hasAuthority("EMPLOYEE")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/activate/**").hasAuthority("EMPLOYEE")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/block/**").hasAuthority("EMPLOYEE")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/deposit/**").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/withdraw/**").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/transfer").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.PUT,    "/api/v1/account/**").hasAuthority("CUSTOMER")
+    .requestMatchers(HttpMethod.DELETE, "/api/v1/account/**").hasAuthority("CUSTOMER")
+
+    .anyRequest().authenticated()
+)
                 .httpBasic(ttpBasic -> {
                 });
 
