@@ -56,7 +56,9 @@ public class AccountService {
     public  void  CreateAccount (AccountDTOIn accountIn){
         Customer customer =customerRepository.findCustomerById(accountIn.getCustomerId());
         if (customer == null) throw new ApiException("Customer not found");
-        Account account = modelMapper.map(accountIn , Account.class);
+       Account account = new Account(); 
+       account.setAccountNumber(accountIn.getAccountNumber());
+       account.setBalance(accountIn.getBalance());
         account.setCustomer(customer);
         account.setActive(false);
         accountRepository.save(account);
