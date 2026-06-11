@@ -98,7 +98,7 @@ public class AccountService {
         if (!account.getCustomer().getId().equals(customer.getId())) {
             throw new ApiException("Unauthorized");
         }
-        if (account.getBalance()>amount)throw new ApiException("Insufficient balance");
+        if (account.getBalance()<amount)throw new ApiException("Insufficient balance");
         if (amount>=0)throw new ApiException("amount  should be greater than 0");
         account.setBalance(account.getBalance()-amount);
         accountRepository.save(account);
